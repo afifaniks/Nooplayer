@@ -24,6 +24,9 @@ import com.example.nooplayer.system.MusicCursor;
 import com.karan.churi.PermissionManager.PermissionManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -138,7 +141,7 @@ public class NavigationActivity extends AppCompatActivity {
 
             if (checkValue == 0) {
                 ArrayList<Track> tracks = new MusicCursor().getMusic(getContext());
-
+                Collections.sort(tracks);
                 //Getting listView
                 ListView trackList = view.findViewById(R.id.trackListView);
 

@@ -1,15 +1,22 @@
 package com.example.nooplayer.entity;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 /**
  * @author: Afif Al Mamun
  * @created_in: 3/18/19
  * @project_name: Nooplayer
  **/
-public class Track {
+public class Track implements Comparable<Track>{
     private String trackName;
     private String albumName;
     private String artistName;
     private String path;
+   // private Bitmap albumArt;
+//    private String genre;
+//    private String duration;
+
     // TODO get image
 
 
@@ -50,5 +57,10 @@ public class Track {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    @Override
+    public int compareTo(Track o) {
+        return this.trackName.compareTo(o.trackName);
     }
 }

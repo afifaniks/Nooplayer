@@ -42,6 +42,9 @@ public class TrackListAdapter extends ArrayAdapter<Track> {
         albumName.setText(track.getAlbumName());
         artistName.setText(track.getArtistName());
 
+
+        System.out.println(track.getPath());
+
         return convertView;
     }
 }
