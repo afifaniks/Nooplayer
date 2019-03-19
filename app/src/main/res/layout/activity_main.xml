@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    android:orientation="vertical"
+    android:weightSum="3"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/albumart"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/musicicon"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+
+        />
+
+    <TextView
+        android:id="@+id/songtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:text="Song Title"
+        android:textColor="#ffff"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        >
+
+
+        <Button
+            android:id="@+id/repeat"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/repeat" />
+
+        <Button
+            android:id="@+id/previous"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/previous"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/play"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/next"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/shuffle"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shuffle"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
