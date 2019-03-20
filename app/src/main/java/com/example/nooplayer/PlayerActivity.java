@@ -18,20 +18,23 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class PlayerActivity extends AppCompatActivity {
-
-    MediaPlayer player;
-    TextView songTitle;
-    TextView songArtist;
-    TextView songAlbum;
-    ImageButton playButton;
-    Track currentTrack;
-    Button nextButton;
-    Button prevButton;
-    SeekBar seekBar;
-    Handler handler;
-    Runnable runnable;
+    private MediaPlayer player;
+    private TextView songTitle;
+    private TextView songArtist;
+    private TextView songAlbum;
+    private ImageButton playButton;
+    private Track currentTrack;
+    private Button nextButton;
+    private Button prevButton;
+    private SeekBar seekBar;
+    private Handler handler;
+    private Runnable runnable;
     private TextView currentPosition;
     private TextView totalDuration;
+    private static Integer mins = 0, secs = 0;
+    private String minutes = "";
+    private String seconds = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,16 +93,26 @@ public class PlayerActivity extends AppCompatActivity {
 
     private String timeConverter(long duration) {
         Double inMinutes = (duration / 1000.0) / 60.0;
-        DecimalFormat df = new DecimalFormat("0.00");
+        DecimalFormat df = new DecimalFormat("00.00");
 
         return df.format(inMinutes).replace('.', ':');
     }
 
     private void updateSeekBar() {
-        seekBar.setProgress(player.getCurrentPosition());
+
+        // Updating current duration
+        if (mins <= 9)
+            minutes = "0" + Integer.toString(mins);
+        else
+            minutes = Integer.toString(mins);
+
+        if (secs <= 9)
+            seconds = "0" + Integer.toString(secs);
+        else
+            seconds = Integer.toString(secs);
 
         // Updating time on current time
-        currentPosition.setText(timeConverter(player.getCurrentPosition()));
+        currentPosition.setText(minutes + ":" + seconds);
 
         if (player.isPlaying()) {
             runnable = new Runnable() {
@@ -110,6 +123,11 @@ public class PlayerActivity extends AppCompatActivity {
             };
 
             handler.postDelayed(runnable, 1000);
+            secs += 1;
+            if (secs == 60) {
+                mins += 1;
+                secs = 0;
+            }
         }
     }
 
