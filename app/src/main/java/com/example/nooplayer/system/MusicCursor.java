@@ -41,35 +41,29 @@ public class MusicCursor{
             int songAlbum = songCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
             int location = songCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
             int albumId = songCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
-
-            MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+            int songComposer = songCursor.getColumnIndex(MediaStore.Audio.Media.COMPOSER);
+            int releaseYear = songCursor.getColumnIndex(MediaStore.Audio.Media.YEAR);
+            int durationId = songCursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
 
             do {
                 String currentTitle = songCursor.getString(songTitle);
                 String currentArtist = songCursor.getString(songArtist);
                 String currentAlbum = songCursor.getString(songAlbum);
                 String songPath = songCursor.getString(location);
-//                Uri albumArt = getAlbumArtUri(albumId);
-//
-//                byte[] art = null;
-//                Bitmap bitmap = null;
-//
-//                try {
-//                    mediaMetadataRetriever.setDataSource(songPath);
-//                    art = mediaMetadataRetriever.getEmbeddedPicture();
-//                    if (art != null)
-//                        bitmap = BitmapFactory.decodeByteArray(art, 0, art.length);
-//                } catch (Exception e) {}
-//
-//
-//                System.out.println(songPath + " " + art);
-                // System.out.println("Check"+getAlbumArtUri(albumId));
+                String composer = songCursor.getString(songComposer);
+                String duration = songCursor.getString(durationId);
+                String year = songCursor.getString(releaseYear);
 
-                tracks.add(new Track(currentTitle, currentAlbum, currentArtist, songPath));
+                tracks.add(new Track(currentTitle,
+                        currentAlbum,
+                        currentArtist,
+                        null,
+                        songPath,
+                        composer,
+                        duration,
+                        year));
 
             } while (songCursor.moveToNext());
-
-            mediaMetadataRetriever.release();
         }
 
         songCursor.close();

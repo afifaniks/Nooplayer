@@ -1,5 +1,6 @@
 package com.example.nooplayer;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -65,7 +69,6 @@ public class NavigationActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
     }
 
     private void getPermissions() {
@@ -106,6 +109,10 @@ public class NavigationActivity extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+
+        // TrackList
+        ArrayList<Track> tracks;
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -137,10 +144,8 @@ public class NavigationActivity extends AppCompatActivity {
             String requiredPermission = "android.permission.READ_EXTERNAL_STORAGE";
             int checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
 
-            System.out.println("Permission" + checkValue);
-
             if (checkValue == 0) {
-                ArrayList<Track> tracks = new MusicCursor().getMusic(getContext());
+                tracks = new MusicCursor().getMusic(getContext());
                 Collections.sort(tracks);
                 //Getting listView
                 ListView trackList = view.findViewById(R.id.trackListView);
@@ -151,6 +156,20 @@ public class NavigationActivity extends AppCompatActivity {
                 checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
 
             }
+
+            ListView listView = view.findViewById(R.id.trackListView);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent playerIntent = new Intent(getContext(), PlayerActivity.class);
+
+                    Track track = tracks.get(position);
+
+                    playerIntent.putExtra("TRACK", track);
+                    startActivity(playerIntent);
+                }
+            });
 
             return view;
 

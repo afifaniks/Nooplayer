@@ -7,5 +7,6 @@
     <color name="black">#000000</color>
     <color name="offWhite">#99FFFFFF</color>
     <color name="gray">#7D7D7D</color>
+    <color name="ripple_color">#557D7D7D</color>
 
 </resources>

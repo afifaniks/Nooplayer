@@ -2,12 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SelectableItemBackground"
+    android:background="@color/black">
 
     <!-- TODO: Update blank fragment layout -->
     <ListView
-        android:divider="@color/gray"
-        android:dividerHeight="1px"
+        android:divider="@color/black"
         android:id="@+id/trackListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
