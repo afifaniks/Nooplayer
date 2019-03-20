@@ -66,12 +66,12 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                playButton.setBackgroundResource(R.drawable.play);
-            }
-        });
+//        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                playButton.setBackgroundResource(R.drawable.play);
+//            }
+//        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // Seeking to the position
@@ -79,8 +79,6 @@ public class PlayerActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     player.seekTo(progress);
-
-                    timeConverter(progress);
                 }
             }
 
@@ -118,6 +116,11 @@ public class PlayerActivity extends AppCompatActivity {
 
 
     private void updateSeekBar() {
+        int duration = player.getCurrentPosition();
+
+        seekBar.setProgress(duration);
+        currentPosition.setText(timeConverter(duration));
+
         if (player.isPlaying()) {
             runnable = new Runnable() {
                 @Override
@@ -127,7 +130,6 @@ public class PlayerActivity extends AppCompatActivity {
             };
 
             handler.postDelayed(runnable, 1000);
-            currentPosition.setText(timeConverter(player.getCurrentPosition()));
 
         }
     }
