@@ -31,10 +31,6 @@ public class PlayerActivity extends AppCompatActivity {
     private Runnable runnable;
     private TextView currentPosition;
     private TextView totalDuration;
-    private static Integer mins = 0, secs = 0;
-    private String minutes = "";
-    private String seconds = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +66,21 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                playButton.setBackgroundResource(R.drawable.play);
+            }
+        });
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // Seeking to the position
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     player.seekTo(progress);
+
+                    timeConverter(progress);
                 }
             }
 
@@ -91,29 +96,28 @@ public class PlayerActivity extends AppCompatActivity {
         });
     }
 
-    private String timeConverter(long duration) {
-        Double inMinutes = (duration / 1000.0) / 60.0;
-        DecimalFormat df = new DecimalFormat("00.00");
+    private String timeConverter(int duration) {
+        int inSeconds = duration / 1000;
+        int toMinutes = inSeconds / 60;
+        int toSeconds = inSeconds - 60 * toMinutes;
 
-        return df.format(inMinutes).replace('.', ':');
+        String resultTime = "";
+
+        if (toMinutes <= 9)
+            resultTime += "0";
+
+        resultTime += Integer.toString(toMinutes) + ":";
+
+        if (toSeconds <= 9)
+            resultTime += "0";
+
+        resultTime += Integer.toString(toSeconds);
+
+        return resultTime;
     }
 
+
     private void updateSeekBar() {
-
-        // Updating current duration
-        if (mins <= 9)
-            minutes = "0" + Integer.toString(mins);
-        else
-            minutes = Integer.toString(mins);
-
-        if (secs <= 9)
-            seconds = "0" + Integer.toString(secs);
-        else
-            seconds = Integer.toString(secs);
-
-        // Updating time on current time
-        currentPosition.setText(minutes + ":" + seconds);
-
         if (player.isPlaying()) {
             runnable = new Runnable() {
                 @Override
@@ -123,11 +127,8 @@ public class PlayerActivity extends AppCompatActivity {
             };
 
             handler.postDelayed(runnable, 1000);
-            secs += 1;
-            if (secs == 60) {
-                mins += 1;
-                secs = 0;
-            }
+            currentPosition.setText(timeConverter(player.getCurrentPosition()));
+
         }
     }
 
