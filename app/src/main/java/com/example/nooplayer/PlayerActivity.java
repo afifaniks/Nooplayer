@@ -129,7 +129,7 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             };
 
-            handler.postDelayed(runnable, 1000);
+            handler.postDelayed(runnable, 50);
 
         }
     }
@@ -162,6 +162,7 @@ public class PlayerActivity extends AppCompatActivity {
             try {
                 player.start();
                 playButton.setBackgroundResource(R.drawable.pause);
+                updateSeekBar();
             } catch (Exception e) {
                 e.printStackTrace();
             }
