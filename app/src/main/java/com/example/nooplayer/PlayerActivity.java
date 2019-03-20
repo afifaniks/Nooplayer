@@ -66,12 +66,12 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-//        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//                playButton.setBackgroundResource(R.drawable.play);
-//            }
-//        });
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                playButton.setBackgroundResource(R.drawable.play);
+            }
+        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // Seeking to the position
