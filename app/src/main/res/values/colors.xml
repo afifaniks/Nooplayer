@@ -6,8 +6,8 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="offWhite">#99FFFFFF</color>
-    <color name="transparentWhite">#33FFFFFF</color>
+    <color name="transparentWhite">#AAFFFFFF</color>
     <color name="gray">#7D7D7D</color>
-    <color name="ripple_color">#88ffffff</color>
+    <color name="ripple_color">#88FFFFFF</color>
 
 </resources>
