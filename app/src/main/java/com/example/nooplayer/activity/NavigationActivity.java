@@ -1,4 +1,4 @@
-package com.example.nooplayer;
+package com.example.nooplayer.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,19 +17,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.nooplayer.R;
+import com.example.nooplayer.TrackListAdapter;
 import com.example.nooplayer.entity.Track;
 import com.example.nooplayer.system.MusicCursor;
 import com.karan.churi.PermissionManager.PermissionManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -164,9 +163,12 @@ public class NavigationActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent playerIntent = new Intent(getContext(), PlayerActivity.class);
 
-                    Track track = tracks.get(position);
+//                    Track track = tracks.get(position);
 
-                    playerIntent.putExtra("TRACK", track);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("TRACK_LIST", tracks);
+                    playerIntent.putExtra("TRACK_LIST", bundle);
+                    playerIntent.putExtra("TRACK_POS", position);
                     startActivity(playerIntent);
                 }
             });
