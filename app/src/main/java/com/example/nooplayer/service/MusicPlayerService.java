@@ -92,7 +92,7 @@ public class MusicPlayerService extends Service {
         try {
             if (started)
                 musicPlayer.reset();
-            Track currentTrack = trackList.get(position);
+            Track currentTrack = trackList.get(currentPosition);
             musicPlayer.setDataSource(currentTrack.getPath());
             Log.d(TAG, "onPlay() -> Track: " + currentTrack.getTrackName());
             musicPlayer.prepareAsync();
