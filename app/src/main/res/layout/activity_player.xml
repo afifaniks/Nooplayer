@@ -38,7 +38,8 @@
     <TextView
         android:paddingLeft="20sp"
         android:paddingRight="20sp"
-        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:focusable="true"
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="Artist"
-        android:textColor="#ffff"
+        android:textColor="@color/offWhite"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -112,8 +113,8 @@
 
         <Button
             android:id="@+id/repeat"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20sp"
+            android:layout_height="25sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="60dp"
             android:layout_weight="1"
@@ -130,8 +131,8 @@
         <ImageButton
             android:id="@+id/play"
             android:onClick="playTrack"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/play"
@@ -147,8 +148,8 @@
 
         <Button
             android:id="@+id/shuffle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20sp"
+            android:layout_height="25sp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/shuffle"

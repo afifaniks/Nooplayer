@@ -23,9 +23,7 @@ public class MusicPlayerService extends Service {
     private static int currentPosition = 0;
     public static final String BROADCAST_PLAYER_STARTED = "com.example.nooplayer.started";
     public static final String BROADCAST_PLAYER_CHANGE_TRACK = "com.example.nooplayer.started";
-    Handler handler = new Handler();
 
-    Intent seekIntent;
     ArrayList<Track> trackList;
 
     // Binder
@@ -80,7 +78,6 @@ public class MusicPlayerService extends Service {
             }
         });
 
-       // seekIntent = new Intent(BROADCAST_PLAYER_STARTED);
     }
 
     public void setTrackList (ArrayList<Track> list) {
@@ -139,7 +136,9 @@ public class MusicPlayerService extends Service {
     public void playNext() {
         currentPosition++;
 
-        if (currentPosition == trackList.size() - 1) {
+        System.out.println(trackList.size() + " SIZE" + currentPosition + " POS");
+
+        if (currentPosition == trackList.size()) {
             play(0); // Returning to start
         } else {
             play(currentPosition);

@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -180,6 +181,9 @@ public class PlayerActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seekBar);
         currentPosition = findViewById(R.id.timePassed);
         totalDuration = findViewById(R.id.timeTotal);
+
+        // To set the marquee work
+        songTitle.setSelected(true);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             // Seeking to the position
