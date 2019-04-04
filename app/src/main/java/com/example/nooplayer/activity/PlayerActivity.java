@@ -12,6 +12,9 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,7 +76,8 @@ public class PlayerActivity extends AppCompatActivity {
 
         //Add fragments
         viewPagerAdapter.addFragment(new TrackListFragment(), "Tracks");
-        viewPagerAdapter.addFragment(new TrackListFragment(), "Noopy");
+        viewPagerAdapter.addFragment(new NoopyFragment(), "Noopy");
+        viewPager.setOffscreenPageLimit(1);
 
         handler = new Handler();
 
@@ -295,9 +299,6 @@ public class PlayerActivity extends AppCompatActivity {
         musicPlayerService.play(trackPosition);
         getSetFields(trackList.get(trackPosition));
         playButton.setBackgroundResource(R.drawable.pause);
-
-//        setUpSeekBar();
-//        updateSeekBar();
     }
 
     @Override

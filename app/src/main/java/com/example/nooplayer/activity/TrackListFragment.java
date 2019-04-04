@@ -28,10 +28,24 @@ import java.util.Collections;
 public class TrackListFragment extends Fragment {
     View view;
     ArrayList<Track> tracks;
+    private boolean _hasLoadedOnce= false; // your boolean field
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(true);
+
+        if (this.isVisible()) {
+            // we check that the fragment is becoming visible
+            if (!isFragmentVisible_ && !_hasLoadedOnce) {
+                _hasLoadedOnce = true;
+            }
+        }
+    }
 
     public TrackListFragment() {
 
     }
+
 
     @Nullable
     @Override

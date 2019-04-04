@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     android:gravity="center">
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cameraPreview"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
         android:text="No Face Detected" />
 
-    <SurfaceView
-        android:layout_width="300sp"
-        android:layout_height="400sp"
-        android:id="@+id/cameraPreview"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20sp"
+        android:text="get noopy"/>
 
 
-</LinearLayout>
+</RelativeLayout>
