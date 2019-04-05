@@ -12,9 +12,6 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,12 +21,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.example.nooplayer.R;
 import com.example.nooplayer.entity.Track;
 import com.example.nooplayer.service.MusicPlayerService;
 import com.karan.churi.PermissionManager.PermissionManager;
-
 import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -55,6 +50,7 @@ public class PlayerActivity extends AppCompatActivity {
     private MusicPlayerService musicPlayerService;
     Intent playerIntent = null;
     boolean playerStarted = false;
+    boolean initiated = false;
     ArrayList<Track> trackList = new ArrayList<>();
     private static int trackPosition = 0;
     private static PlayerActivity thisActivity;
@@ -77,17 +73,15 @@ public class PlayerActivity extends AppCompatActivity {
         //Add fragments
         viewPagerAdapter.addFragment(new TrackListFragment(), "Tracks");
         viewPagerAdapter.addFragment(new NoopyFragment(), "Noopy");
+        viewPagerAdapter.addFragment(new NoopySuggestionFragment(), "Suggestion");
 
         handler = new Handler();
 
         // adapter setup
         viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
 
         thisActivity = this;
-
-        ListView listView = findViewById(R.id.trackListView);
 
     }
 

@@ -63,13 +63,14 @@
         android:layout_height="wrap_content"
         android:text="No face detected"/>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
+        android:id="@+id/getSuggestion"
         android:layout_marginBottom="20sp"
-        android:text="get noopy"/>
+        android:src="@drawable/tick"/>
 
 
 </RelativeLayout>
