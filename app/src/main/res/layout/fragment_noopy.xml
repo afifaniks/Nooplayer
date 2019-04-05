@@ -13,17 +13,55 @@
         android:layout_height="match_parent"
         android:id="@+id/cameraPreview"/>
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginTop="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="10sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtHappiness"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="Happiness: 0" />
+
+        <TextView
+            android:id="@+id/txtSad"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="Sadness: 0" />
+
+        <TextView
+            android:id="@+id/txtAnger"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="Anger: 0" />
+        <TextView
+            android:id="@+id/txtDisgust"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="Disgust: 0" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Face Detected" />
+        android:text="No face detected"/>
 
     <Button
         android:layout_width="wrap_content"

@@ -77,12 +77,12 @@ public class PlayerActivity extends AppCompatActivity {
         //Add fragments
         viewPagerAdapter.addFragment(new TrackListFragment(), "Tracks");
         viewPagerAdapter.addFragment(new NoopyFragment(), "Noopy");
-        viewPager.setOffscreenPageLimit(1);
 
         handler = new Handler();
 
         // adapter setup
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
 
         thisActivity = this;

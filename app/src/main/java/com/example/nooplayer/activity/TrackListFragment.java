@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.example.nooplayer.R;
 import com.example.nooplayer.TrackListAdapter;
 import com.example.nooplayer.entity.Track;
+import com.example.nooplayer.system.GenreCursor;
 import com.example.nooplayer.system.MusicCursor;
 
 import java.util.ArrayList;
@@ -59,6 +60,8 @@ public class TrackListFragment extends Fragment {
 
         if (checkValue == 0) {
             tracks = new MusicCursor().getMusic(getContext());
+            GenreCursor.setMap(getContext());
+//            GenreCursor.genre(getContext(), 10);
             Collections.sort(tracks);
             //Getting listView
             ListView trackList = view.findViewById(R.id.trackListView);

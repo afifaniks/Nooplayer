@@ -26,39 +26,63 @@ import java.util.List;
 public class NoopyFragment extends Fragment implements Detector.ImageListener {
     private CameraDetector cameraDetector;
     private SurfaceView cameraPreview;
+    private View thisView;
     private TextView textView;
-    private float[] expression = new float[6];
+    private float[] expression = new float[5];
+    boolean shown = false;
 
-    private boolean _hasLoadedOnce= false; // your boolean field
-
+    // Labels
+    private TextView txtHappy;
+    private TextView txtAngry;
+    private TextView txtSad;
+    private TextView txtDisgust;
 
     @Override
-    public void setUserVisibleHint(boolean isFragmentVisible_) {
-        super.setUserVisibleHint(true);
+    public void onDestroyView() {
+        super.onDestroyView();
+        cameraDetector.stop();
+    }
 
-        if (this.isVisible()) {
-            // we check that the fragment is becoming visible
-            if (!isFragmentVisible_ && !_hasLoadedOnce) {
-                _hasLoadedOnce = true;
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            cameraDetector.start();
+            shown = true;
+        } else {
+            if (shown)
+            {
+                cameraDetector.stop();
+                shown =false;
             }
         }
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_noopy, container, false);
 
+        cameraDetector = new CameraDetector(getContext(), CameraDetector.CameraType.CAMERA_FRONT,
+                (SurfaceView) view.findViewById(R.id.cameraPreview));;
+
         textView = view.findViewById(R.id.textView);
-        cameraDetector = new CameraDetector(getContext(), CameraDetector.CameraType.CAMERA_FRONT, (SurfaceView)view.findViewById(R.id.cameraPreview));;
+
+        txtAngry = view.findViewById(R.id.txtAnger);
+        txtHappy = view.findViewById(R.id.txtHappiness);
+        txtDisgust = view.findViewById(R.id.txtDisgust);
+        txtSad = view.findViewById(R.id.txtSad);
+
         cameraDetector.setImageListener(this);
         cameraDetector.setDetectSmile(true);
         cameraDetector.setDetectAnger(true);
         cameraDetector.setDetectDisgust(true);
         cameraDetector.setDetectJoy(true);
         cameraDetector.setDetectSadness(true);
-        cameraDetector.setMaxProcessRate(5);
+        cameraDetector.setMaxProcessRate(10);
 
-        cameraDetector.start();
+
         return view;
     }
 
@@ -67,52 +91,18 @@ public class NoopyFragment extends Fragment implements Detector.ImageListener {
         if (faces.size() == 0) {
             textView.setText("No face detected");
         } else {
+            textView.setText("");
             Face face = faces.get(0);
-            String res = "";
 
             expression[0] = face.expressions.getSmile();
             expression[1] = face.emotions.getAnger();
-            expression[2] = face.emotions.getJoy();
+            expression[2] = face.emotions.getSadness();
             expression[3] = face.emotions.getDisgust();
-            expression[4] = face.emotions.getSadness();
-            expression[5] = face.emotions.getSurprise();
 
-            float flag = expression[0];
-            int index = 0;
-
-            for (int i = 1; i < 6; i++) {
-                if (expression[i] > flag) {
-                    index = i;
-                    flag = expression[i];
-                }
-            }
-
-            if (flag < 10) { // Threshold
-                res = "You're Natural.";
-            } else {
-                switch (index) {
-                    case 0:
-                        res = "You're Happy!";
-                        break;
-                    case 1:
-                        res = "You're Angry!";
-                        break;
-                    case 2:
-                        res = "You're Joyous!";
-                        break;
-                    case 3:
-                        res = "You're Disgusted!";
-                        break;
-                    case 4:
-                        res = "You're Sad!";
-                        break;
-                    case 5:
-                        res = "You're Surprised!";
-                        break;
-                }
-            }
-
-            textView.setText(res);
+            txtHappy.setText("Happiness: " + expression[0]);
+            txtAngry.setText("Anger: " + expression[1]);
+            txtSad.setText("Sadness: " + expression[2]);
+            txtDisgust.setText("Disgust: " + expression[3]);
         }
     }
 }
