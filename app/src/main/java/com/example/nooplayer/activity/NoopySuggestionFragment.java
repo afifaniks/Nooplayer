@@ -65,8 +65,10 @@ public class NoopySuggestionFragment extends Fragment {
                 // Unique random songs
                 LinkedHashSet<Integer> indexes = new LinkedHashSet<>();
 
-                while (indexes.size() < RECOMMENDATION_SIZE) {
-                    indexes.add(new Random().nextInt(size));
+                if (size > 0) {
+                    while (indexes.size() < RECOMMENDATION_SIZE) {
+                        indexes.add(new Random().nextInt(size));
+                    }
                 }
 
                 for (Integer i: indexes) {

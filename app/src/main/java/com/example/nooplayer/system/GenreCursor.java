@@ -71,7 +71,7 @@ public class GenreCursor {
 
         suggestionMap.put("SAD", sadMusic);
         suggestionMap.put("HAPPY", happyMusic);
-        suggestionMap.put("DISGUS", disgustMusic);
+        suggestionMap.put("DISGUST", disgustMusic);
         suggestionMap.put("ANGRY", angryMusic);
     }
 
