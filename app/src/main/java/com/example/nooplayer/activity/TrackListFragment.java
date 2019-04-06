@@ -29,7 +29,6 @@ import java.util.Collections;
 public class TrackListFragment extends Fragment {
     View view;
     ArrayList<Track> tracks;
-    static boolean loaded = false;
 
     @Override
     public void setUserVisibleHint(boolean isFragmentVisible) {
@@ -51,10 +50,6 @@ public class TrackListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_track_list, container, false);
-
-        if (!loaded) {
-            loaded = true;
-
             String requiredPermission = "android.permission.READ_EXTERNAL_STORAGE";
             int checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
 
@@ -85,7 +80,6 @@ public class TrackListFragment extends Fragment {
 
             playerActivity.setTrackList(tracks);
             playerActivity.getSetFields(tracks.get(0));
-        }
 
         return view;
     }

@@ -232,7 +232,6 @@ public class PlayerActivity extends AppCompatActivity {
     public void playNext(View view) {
         if (musicPlayerService.isPlaying()) {
             musicPlayerService.playNext();
-            musicPlayerService.playNext();
         }
     }
 

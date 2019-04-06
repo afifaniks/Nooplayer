@@ -30,7 +30,7 @@ import java.util.Random;
  * @project_name: Nooplayer-master
  **/
 public class NoopySuggestionFragment extends Fragment {
-    private static final int RECOMMENDATION_NUMBER = 10;
+    private static final int RECOMMENDATION_SIZE = 10;
     View view;
     TextView txtMessage;
     ListView trackList;
@@ -65,7 +65,7 @@ public class NoopySuggestionFragment extends Fragment {
                 // Unique random songs
                 LinkedHashSet<Integer> indexes = new LinkedHashSet<>();
 
-                while (indexes.size() < RECOMMENDATION_NUMBER) {
+                while (indexes.size() < RECOMMENDATION_SIZE) {
                     indexes.add(new Random().nextInt(size));
                 }
 
