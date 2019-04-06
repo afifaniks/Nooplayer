@@ -13,6 +13,7 @@ import com.example.nooplayer.entity.Track;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MusicPlayerService extends Service {
     static final String TAG = "MusicPlayerService";
@@ -20,11 +21,13 @@ public class MusicPlayerService extends Service {
     private MediaPlayer musicPlayer;
     private static boolean playing = false;
     private static boolean started = true;
+    private static boolean shuffle = false;
     private static int currentPosition = 0;
     public static final String BROADCAST_PLAYER_STARTED = "com.example.nooplayer.started";
     public static final String BROADCAST_PLAYER_CHANGE_TRACK = "com.example.nooplayer.started";
 
     ArrayList<Track> trackList;
+    private boolean repeatOne = false;
 
     // Binder
     public class MusicPlayerServiceBinder extends Binder {
@@ -86,6 +89,14 @@ public class MusicPlayerService extends Service {
         trackList = list;
     }
 
+    public void setShuffle(boolean value) {
+        shuffle = value;
+    }
+
+    public void setRepeatOne(boolean value) {
+        musicPlayer.setLooping(value);
+    }
+
     public void play(int position) {
         currentPosition = position;
 
@@ -95,7 +106,7 @@ public class MusicPlayerService extends Service {
             Track currentTrack = trackList.get(currentPosition);
             musicPlayer.setDataSource(currentTrack.getPath());
             Log.d(TAG, "onPlay() -> Track: " + currentTrack.getTrackName());
-            musicPlayer.prepareAsync();
+            musicPlayer.prepare();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,7 +145,17 @@ public class MusicPlayerService extends Service {
     }
 
     public void playNext() {
-        currentPosition++;
+        if (shuffle) {
+            int temp = currentPosition;
+
+            currentPosition = new Random().nextInt(trackList.size());
+
+            while (temp == currentPosition) // Loop will run until a new index found
+                currentPosition = new Random().nextInt(trackList.size());
+
+        } else {
+            currentPosition++;
+        }
 
         System.out.println(trackList.size() + " SIZE" + currentPosition + " POS");
 

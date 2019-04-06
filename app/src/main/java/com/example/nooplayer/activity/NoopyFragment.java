@@ -59,7 +59,7 @@ public class NoopyFragment extends Fragment implements Detector.ImageListener {
             if (shown)
             {
                 cameraDetector.stop();
-                shown =false;
+                shown = false;
             }
         }
     }

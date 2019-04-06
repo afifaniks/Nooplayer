@@ -44,6 +44,7 @@
                         android:layout_margin="5sp"
                         android:id="@+id/repeat"
                         android:layout_width="25sp"
+                        android:onClick="onRepeatClick"
                         android:layout_height="25sp"
                         android:layout_gravity="left|top"
                         android:background="@drawable/repeat" />
@@ -53,6 +54,7 @@
                         android:id="@+id/shuffle"
                         android:layout_alignParentEnd="true"
                         android:layout_width="25sp"
+                        android:onClick="onShuffleClick"
                         android:layout_height="25sp"
                         android:background="@drawable/shuffle" />
 

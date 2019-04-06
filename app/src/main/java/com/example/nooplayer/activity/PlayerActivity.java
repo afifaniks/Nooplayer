@@ -38,6 +38,8 @@ public class PlayerActivity extends AppCompatActivity {
     public static String Tag = "TAG";
     private TextView songAlbum;
     private ImageButton playButton;
+    private Button shuffleButton;
+    private Button repeatButton;
     private Track currentTrack;
     private Button nextButton;
     private Button prevButton;
@@ -51,6 +53,8 @@ public class PlayerActivity extends AppCompatActivity {
     Intent playerIntent = null;
     boolean playerStarted = false;
     boolean initiated = false;
+    private static boolean shuffle = false;
+    private static boolean repeatOne = false;
     ArrayList<Track> trackList = new ArrayList<>();
     private static int trackPosition = 0;
     private static PlayerActivity thisActivity;
@@ -142,6 +146,8 @@ public class PlayerActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seekBar);
         currentPosition = findViewById(R.id.timePassed);
         totalDuration = findViewById(R.id.timeTotal);
+        shuffleButton = findViewById(R.id.shuffle);
+        repeatButton = findViewById(R.id.repeat);
 
         // To set the marquee work
         songTitle.setSelected(true);
@@ -225,6 +231,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     public void playNext(View view) {
         if (musicPlayerService.isPlaying()) {
+            musicPlayerService.playNext();
             musicPlayerService.playNext();
         }
     }
@@ -311,4 +318,29 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
+    public void onShuffleClick(View view) {
+        if (shuffle) {
+            shuffle = false;
+            musicPlayerService.setShuffle(false);
+            shuffleButton.setBackgroundResource(R.drawable.shuffle);
+
+        } else {
+            shuffle = true;
+            musicPlayerService.setShuffle(true);
+            shuffleButton.setBackgroundResource(R.drawable.shuffle_clicked);
+        }
+    }
+
+    public void onRepeatClick(View view) {
+        if (repeatOne) {
+            repeatOne = false;
+            musicPlayerService.setRepeatOne(false);
+            repeatButton.setBackgroundResource(R.drawable.repeat);
+        } else {
+            repeatOne = true;
+            musicPlayerService.setRepeatOne(true);
+            repeatButton.setBackgroundResource(R.drawable.repeat_one);
+
+        }
+    }
 }

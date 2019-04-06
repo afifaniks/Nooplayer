@@ -29,19 +29,18 @@ import java.util.Collections;
 public class TrackListFragment extends Fragment {
     View view;
     ArrayList<Track> tracks;
-//    private boolean _hasLoadedOnce= false; // your boolean field
-//
-//    @Override
-//    public void setUserVisibleHint(boolean isFragmentVisible_) {
-//        super.setUserVisibleHint(true);
-//
-//        if (this.isVisible()) {
-//            // we check that the fragment is becoming visible
-//            if (!isFragmentVisible_ && !_hasLoadedOnce) {
-//                _hasLoadedOnce = true;
-//            }
-//        }
-//    }
+    static boolean loaded = false;
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible) {
+        super.setUserVisibleHint(true);
+
+        if (isFragmentVisible) {
+
+        } else {
+
+        }
+    }
 
     public TrackListFragment() {
 
@@ -53,39 +52,40 @@ public class TrackListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_track_list, container, false);
 
-        String requiredPermission = "android.permission.READ_EXTERNAL_STORAGE";
-        int checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
+        if (!loaded) {
+            loaded = true;
 
-        System.out.println(checkValue + "Chk");
+            String requiredPermission = "android.permission.READ_EXTERNAL_STORAGE";
+            int checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
 
-        if (checkValue == 0) {
-            tracks = new MusicCursor().getMusic(getContext());
-            GenreCursor.setMap(getContext());
-//            GenreCursor.genre(getContext(), 10);
-            Collections.sort(tracks);
-            //Getting listView
-            ListView trackList = view.findViewById(R.id.trackListView);
+            if (checkValue == 0) {
+                tracks = new MusicCursor().getMusic(getContext());
+                GenreCursor.setMap(getContext());
+                Collections.sort(tracks);
+                //Getting listView
+                ListView trackList = view.findViewById(R.id.trackListView);
 
-            ArrayAdapter<Track> adapter = new TrackListAdapter(view.getContext(), R.layout.list_view,  tracks);
+                ArrayAdapter<Track> adapter = new TrackListAdapter(view.getContext(), R.layout.list_view,  tracks);
 
-            trackList.setAdapter(adapter);
-            checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
+                trackList.setAdapter(adapter);
+                checkValue = getContext().checkCallingOrSelfPermission(requiredPermission);
 
-        }
-
-        ListView listView = view.findViewById(R.id.trackListView);
-        final PlayerActivity playerActivity = PlayerActivity.getThisActivity();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                playerActivity.setPosition(position);
-                playerActivity.playSong();
             }
-        });
 
-        playerActivity.setTrackList(tracks);
-        playerActivity.getSetFields(tracks.get(0));
+            ListView listView = view.findViewById(R.id.trackListView);
+            final PlayerActivity playerActivity = PlayerActivity.getThisActivity();
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    playerActivity.setPosition(position);
+                    playerActivity.playSong();
+                }
+            });
+
+            playerActivity.setTrackList(tracks);
+            playerActivity.getSetFields(tracks.get(0));
+        }
 
         return view;
     }

@@ -93,23 +93,23 @@ public class NoopySuggestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_noopy_suggestion, container, false);
+            view = inflater.inflate(R.layout.fragment_noopy_suggestion, container, false);
 
-        txtMessage = view.findViewById(R.id.txtMessage);
-        trackList = view.findViewById(R.id.trackListView);
-        playerActivity = PlayerActivity.getThisActivity();
+            txtMessage = view.findViewById(R.id.txtMessage);
+            trackList = view.findViewById(R.id.trackListView);
+            playerActivity = PlayerActivity.getThisActivity();
 
-        if (!moodSet) {
-            txtMessage.setText("Use Noopy to get suggestion");
-        }
-
-        trackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                playerActivity.setPosition(position);
-                playerActivity.playSong();
+            if (!moodSet) {
+                txtMessage.setText("Use Noopy to get suggestion");
             }
-        });
+
+            trackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    playerActivity.setPosition(position);
+                    playerActivity.playSong();
+                }
+            });
 
         return view;
     }
