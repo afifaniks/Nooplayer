@@ -49,6 +49,15 @@
                         android:layout_gravity="left|top"
                         android:background="@drawable/repeat" />
 
+                    <TextView
+                        android:layout_marginTop="10sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NOW PLAYING"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp" />
+
                     <Button
                         android:layout_margin="5sp"
                         android:id="@+id/shuffle"
@@ -59,14 +68,6 @@
                         android:background="@drawable/shuffle" />
 
                 </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Playing From"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/songAlbum"
@@ -97,7 +98,7 @@
                     android:text="Title"
                     android:textAlignment="center"
                     android:textColor="#ffff"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/songArtist"
@@ -106,7 +107,7 @@
                     android:gravity="center"
                     android:text="Artist"
                     android:textAlignment="center"
-                    android:textColor="@color/offWhite"
+                    android:textColor="@color/white"
                     android:textSize="12sp" />
 
                 <LinearLayout
