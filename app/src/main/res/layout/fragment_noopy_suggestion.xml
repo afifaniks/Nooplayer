@@ -15,7 +15,7 @@
         android:textSize="15sp"
         android:padding="5sp"
         android:background="@color/colorPrimary"
-        android:text="You might like this songs now"
+        android:text="Use Noopy to get recommendations"
         android:textColor="@color/white"/>
 
     <ListView

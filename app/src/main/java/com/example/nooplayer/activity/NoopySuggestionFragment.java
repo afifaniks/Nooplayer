@@ -34,11 +34,15 @@ public class NoopySuggestionFragment extends Fragment {
     View view;
     TextView txtMessage;
     ListView trackList;
-    ArrayList<Track> tracks;
+    static ArrayList<Track> tracks;
+    static ArrayList<Track> recommendation = new ArrayList<>();
     PlayerActivity playerActivity;
     ArrayAdapter<Track> adapter;
     private static boolean moodSet = false;
     private static String mood = "";
+    private static int NEW_RECOMMENDATION = 0;
+    private static boolean isStarted = false;
+    private static boolean isVisible = false;
 
     public NoopySuggestionFragment() {
 
@@ -47,19 +51,42 @@ public class NoopySuggestionFragment extends Fragment {
     public static void setMood(String m) {
         moodSet = true;
         mood = m;
+        NEW_RECOMMENDATION = 1;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        isVisible = isVisibleToUser;
 
-        if (isVisibleToUser) {
-            if (moodSet) {
-                txtMessage.setText("Some songs for " + mood + " mood");
+        if (isVisible && isStarted) {
+            loadContents();
+        } else {
 
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        isStarted = true;
+
+        if (isStarted && isVisible) {
+            loadContents();
+        }
+    }
+
+    private void loadContents() {
+        txtMessage = view.findViewById(R.id.txtMessage);
+        trackList = view.findViewById(R.id.trackListView);
+        playerActivity = PlayerActivity.getThisActivity();
+
+        if (moodSet) {
+            txtMessage.setText("Some songs for " + mood + " mood");
+
+            if (NEW_RECOMMENDATION == 1) {
                 tracks = GenreCursor.getRecommendation(getContext(), mood);
 
-                ArrayList<Track> recommendation = new ArrayList<>();
                 int size = tracks.size();
 
                 // Unique random songs
@@ -77,19 +104,25 @@ public class NoopySuggestionFragment extends Fragment {
                 }
 
                 Collections.sort(recommendation);
-                    //Getting listView
+                //Getting listView
                 adapter = new TrackListAdapter(view.getContext(), R.layout.list_view,  recommendation);
                 trackList.setAdapter(adapter);
-
-                playerActivity.setTrackList(recommendation);
-
+                NEW_RECOMMENDATION = 0; // Resetting
             } else {
-                System.out.println("YYY");
+                adapter = new TrackListAdapter(view.getContext(), R.layout.list_view,  recommendation);
+                trackList.setAdapter(adapter);
             }
 
-        } else {
-
         }
+
+        trackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                playerActivity.setTrackList(recommendation);
+                playerActivity.setPosition(position);
+                playerActivity.playSong();
+            }
+        });
     }
 
     @Nullable
@@ -97,21 +130,14 @@ public class NoopySuggestionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.fragment_noopy_suggestion, container, false);
 
-            txtMessage = view.findViewById(R.id.txtMessage);
-            trackList = view.findViewById(R.id.trackListView);
-            playerActivity = PlayerActivity.getThisActivity();
-
-            if (!moodSet) {
-                txtMessage.setText("Use Noopy to get suggestion");
-            }
-
-            trackList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    playerActivity.setPosition(position);
-                    playerActivity.playSong();
-                }
-            });
+//            txtMessage = view.findViewById(R.id.txtMessage);
+//            trackList = view.findViewById(R.id.trackListView);
+//            playerActivity = PlayerActivity.getThisActivity();
+//
+//            if (moodSet) {
+//                adapter = new TrackListAdapter(view.getContext(), R.layout.list_view,  recommendation);
+//                trackList.setAdapter(adapter);
+//            }
 
         return view;
     }

@@ -40,7 +40,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ImageButton playButton;
     private Button shuffleButton;
     private Button repeatButton;
-    private Track currentTrack;
+    private static Track currentTrack;
     private Button nextButton;
     private Button prevButton;
     private SeekBar seekBar;
@@ -117,7 +117,6 @@ public class PlayerActivity extends AppCompatActivity {
 
 
     private void updateSeekBar() {
-
         int duration = musicPlayerService.getCurrentPosition();
 
         seekBar.setProgress(duration);
@@ -286,7 +285,6 @@ public class PlayerActivity extends AppCompatActivity {
     };
 
     public void setTrackList(ArrayList<Track> tracks) {
-        System.out.println("tracls");
         trackList = tracks;
     }
 

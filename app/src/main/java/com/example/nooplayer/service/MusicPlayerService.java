@@ -48,15 +48,6 @@ public class MusicPlayerService extends Service {
         return MPSBinder;
     }
 
-    //Releasing resources on unbind
-//    @Override
-//    public boolean onUnbind(Intent intent){
-//        musicPlayer.stop();
-//        musicPlayer.release();
-//        return false;
-//    }
-
-
     @Override
     public void onCreate() {
         super.onCreate();

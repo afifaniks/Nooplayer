@@ -29,6 +29,7 @@ import java.util.Collections;
 public class TrackListFragment extends Fragment {
     View view;
     ArrayList<Track> tracks;
+    static int FIRST_LOAD = 0;
 
     @Override
     public void setUserVisibleHint(boolean isFragmentVisible) {
@@ -78,8 +79,11 @@ public class TrackListFragment extends Fragment {
                 }
             });
 
-            playerActivity.setTrackList(tracks);
-            playerActivity.getSetFields(tracks.get(0));
+            if (FIRST_LOAD == 0) {
+                playerActivity.setTrackList(tracks);
+                playerActivity.getSetFields(tracks.get(0));
+                FIRST_LOAD = 1;
+            }
 
         return view;
     }
